@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Infograpgic from "./Components/infographics";
 
 const AppWrapper = styled.div`
-  
+  font-family: 'Roboto', sans-serif;
 `;
 
 const App = () => {

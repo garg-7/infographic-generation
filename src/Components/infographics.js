@@ -19,6 +19,26 @@ const InfographicsWrapper = styled.div`
       width: 96%;
       border: ${props=> props.textColor} solid 4px;
       border-radius: 10px;
+      text-align: center;
+      .text-section{
+        span{
+          display: block;
+          font-weight: 700;
+          font-size: 100px;
+        }
+        font-weight: 600;
+        font-size: 30px;
+      }
+      
+      .map-section{
+        svg{
+          height: 300px;
+          width: 300px;
+          g{
+            fill: ${props=> props.textColor};
+          }
+        }
+      }
     }
   }
 `;
@@ -30,7 +50,6 @@ const Icon = ({ name, ...rest }) => {
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
-        console.log("Hello")
         setLoading(true);
         const importIcon = async () => {
             try {
@@ -65,7 +84,6 @@ const Infograpgic = (props) => {
                     </div>
                     <div className="map-section">
                         <Icon name={props.code}/>
-                        adada
                     </div>
                 </div>
             </div>
