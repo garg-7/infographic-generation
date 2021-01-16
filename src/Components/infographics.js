@@ -28,12 +28,13 @@ const InfographicsWrapper = styled.div`
         }
         font-weight: 600;
         font-size: 30px;
+        margin-bottom: 20px;
       }
       
       .map-section{
         svg{
-          height: 300px;
-          width: 300px;
+          height: 250px;
+          width: 250px;
           g{
             fill: ${props=> props.textColor};
           }

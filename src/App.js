@@ -12,7 +12,7 @@ const App = () => {
     let textColor = "#f4eac7";
     let value = "36%";
     let text = "of the great lakes lie within Canadian territory";
-    let countryCode = "ca";
+    let countryCode = "au";
     return (
         <Container>
             <AppWrapper >
