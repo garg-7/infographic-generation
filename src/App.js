@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Container from "@material-ui/core/Container";
+import styled from 'styled-components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const AppWrapper = styled.div`
+  .layout{
+    background-color: ${props=> props.backgroundColor};
+    color: ${props=> props.textColor};
+  }
+`;
+
+const App = () => {
+    let backgroundColor = "#f45454";
+    let textColor = "#f4eac7";
+    return (
+        <AppWrapper backgroundColor={backgroundColor} textColor={textColor}>
+            <Container>
+                <div className="layout">
+
+                </div>
+            </Container>
+        </AppWrapper>
+    );
+};
 
 export default App;
