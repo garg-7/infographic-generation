@@ -10,9 +10,10 @@ const AppWrapper = styled.div`
 const App = () => {
     let backgroundColor = "#f45454";
     let textColor = "#f4eac7";
-    let value = "36%";
-    let text = "of the great lakes lie within Canadian territory";
+    let value = "10%";
+    let text = "of the land in Australia is on fire";
     let countryCode = "au";
+    let element = "fire";
     return (
         <Container>
             <AppWrapper >
@@ -22,6 +23,7 @@ const App = () => {
                     value={value}
                     text={text}
                     code={countryCode}
+                    element={element}
                 />
             </AppWrapper>
         </Container>
