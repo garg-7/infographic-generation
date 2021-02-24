@@ -1,23 +1,23 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import styled from 'styled-components';
-import Infograpgic from "./Components/infographics";
+import Infograpgic1 from "./Components/infographics1";
 
 const AppWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
 `;
 
 const App = () => {
-    let backgroundColor = "#f45454";
-    let textColor = "#f4eac7";
-    let value = "10%";
-    let text = "of the land in Australia is on fire";
-    let countryCode = "au";
-    let element = "fire";
+    let backgroundColor = "#4ade43";
+    let textColor = "#baf7b7";
+    let value = "15%";
+    let text = "of the forest in India are evergreen";
+    let countryCode = "in";
+    let element = "tree";
     return (
         <Container>
             <AppWrapper >
-                <Infograpgic
+                <Infograpgic1
                     backgroundColor={backgroundColor}
                     textColor={textColor}
                     value={value}

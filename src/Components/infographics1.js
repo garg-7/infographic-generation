@@ -1,7 +1,8 @@
 import React from "react";
+import SvgLoader from "./svg-loader";
 import styled from 'styled-components';
 
-const InfographicsWrapper = styled.div`
+const Infographics1Wrapper = styled.div`
     margin: 20px auto;
   .layout{
     background-color: ${props=> props.backgroundColor};
@@ -56,39 +57,9 @@ const InfographicsWrapper = styled.div`
 `;
 
 
-
-const Icon = ({ name, type, ...rest }) => {
-    const ImportedIconRef = React.useRef(null);
-    const [loading, setLoading] = React.useState(false);
-
-    React.useEffect(() => {
-        setLoading(true);
-        const importIcon = async () => {
-            try {
-                ImportedIconRef.current =  type === "map" ?  (await import(`!!@svgr/webpack?-svgo,+titleProp,+ref!../assets/maps/${name}/vector.svg`)).default
-                    : (await import(`!!@svgr/webpack?-svgo,+titleProp,+ref!../assets/elements/${name}.svg`)).default ;
-            } catch (err) {
-                // Your own error handling logic, throwing error for the sake of
-                // simplicity
-                throw err;
-            } finally {
-                setLoading(false);
-            }
-        };
-        importIcon();
-    }, [name]);
-
-    if (!loading && ImportedIconRef.current) {
-        const { current: ImportedIcon } = ImportedIconRef;
-        return <ImportedIcon {...rest} />;
-    }
-
-    return null;
-};
-
-const Infograpgic = (props) => {
+const Infograpgic1 = (props) => {
     return(
-        <InfographicsWrapper backgroundColor={props.backgroundColor} textColor={props.textColor}>
+        <Infographics1Wrapper backgroundColor={props.backgroundColor} textColor={props.textColor}>
             <div className="layout">
                 <div className="inner-layout">
                     <div className="text-section">
@@ -96,13 +67,13 @@ const Infograpgic = (props) => {
                         {props.text}
                     </div>
                     <div className="info-section">
-                        <Icon className="map" name={props.code} type="map"/>
-                        <Icon className="element" name={props.element}/>
+                        <SvgLoader className="map" name={props.code} type="map"/>
+                        <SvgLoader className="element" name={props.element}/>
                     </div>
                 </div>
             </div>
-        </InfographicsWrapper>
+        </Infographics1Wrapper>
     )
 };
 
-export default Infograpgic;
+export default Infograpgic1;
