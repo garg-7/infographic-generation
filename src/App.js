@@ -2,18 +2,19 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import styled from 'styled-components';
 import Infograpgic1 from "./Components/infographics1";
+import Infograpgic2 from "./Components/infographics2";
 
 const AppWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
 `;
 
 const App = () => {
-    let backgroundColor = "#4ade43";
-    let textColor = "#baf7b7";
+    let backgroundColor = "#e31b47";
+    let textColor = "#e0abb6";
     let value = "15%";
     let text = "of the forest in India are evergreen";
-    let countryCode = "in";
-    let element = "tree";
+    let countryCode = "au";
+    let element = "fire";
     return (
         <Container>
             <AppWrapper >
@@ -24,6 +25,15 @@ const App = () => {
                     text={text}
                     code={countryCode}
                     element={element}
+                />
+                <Infograpgic2
+                    backgroundColor={backgroundColor}
+                    textColor={textColor}
+                    value={value}
+                    text={text}
+                    code={countryCode}
+                    element={element}
+                    decrease={true}
                 />
             </AppWrapper>
         </Container>
