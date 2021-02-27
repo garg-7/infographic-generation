@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import styled from 'styled-components';
 import Infograpgic1 from "./Components/infographics1";
 import Infograpgic2 from "./Components/infographics2";
+import Infograpgic3 from "./Components/infographics3";
 
 const AppWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -27,6 +28,15 @@ const App = () => {
                     element={element}
                 />
                 <Infograpgic2
+                    backgroundColor={backgroundColor}
+                    textColor={textColor}
+                    value={value}
+                    text={text}
+                    code={countryCode}
+                    element={element}
+                    decrease={true}
+                />
+                <Infograpgic3
                     backgroundColor={backgroundColor}
                     textColor={textColor}
                     value={value}
