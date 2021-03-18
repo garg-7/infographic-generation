@@ -10,12 +10,12 @@ const AppWrapper = styled.div`
 `;
 
 const App = () => {
-    let backgroundColor = "#e31b47";
-    let textColor = "#e0abb6";
+    let backgroundColor = "#07ed42";  // #e31b47
+    let textColor = "#92f0aa";  // #e0abb6
     let value = "15%";
-    let text = "of the forest in India are evergreen";
+    let text = "Decrease in forest cover of Australia in 12 years";
     let countryCode = "au";
-    let element = "fire";
+    let element = "tree";
     return (
         <Container>
             <AppWrapper >
