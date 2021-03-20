@@ -33,7 +33,7 @@ unique_tags = [
 tag2id = {tag: id for id, tag in enumerate(unique_tags)}
 id2tag = {id: tag for tag, id in tag2id.items()}
 
-test_encodings, _ = get_encodings_from_raw_text('raw_text.txt')
+test_encodings, _ = get_encodings_from_raw_text(r"India saw a 63 . 1 % hike in the per capita power consumption over the course of the past 12 months .")
 test_dataset = VariationDataset(test_encodings, _)
 test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
