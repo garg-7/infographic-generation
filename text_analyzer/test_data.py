@@ -2,6 +2,9 @@ from torch.utils.data import DataLoader
 from create_encodings import get_encodings_from_raw_text
 import torch
 import numpy as np
+from flask import Flask, request
+
+app = Flask(__name__)
 
 
 class VariationDataset(torch.utils.data.Dataset):
@@ -33,24 +36,63 @@ unique_tags = [
 tag2id = {tag: id for id, tag in enumerate(unique_tags)}
 id2tag = {id: tag for tag, id in tag2id.items()}
 
-test_encodings, _ = get_encodings_from_raw_text(r"India saw a 63 . 1 % hike in the per capita power consumption over the course of the past 12 months .")
-test_dataset = VariationDataset(test_encodings, _)
-test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
-device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-print(f'Device to be used: {device}')
+@app.route('/tokenize', methods=['POST', ])
+def tokenize():
+    text = request.form.get('text')
+    print(text)
+    test_encodings, _ = get_encodings_from_raw_text(text)
+    test_dataset = VariationDataset(test_encodings, _)
+    test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
-model = torch.load('merged_model.pt')
-model.to(device)
-model.eval()
-results_file = open('raw_text_result.txt', 'w')
-for batch in test_loader:
-    input_ids = batch['input_ids'].to(device)
-    attention_mask = batch['attention_mask'].to(device)
-    outputs = model(input_ids, attention_mask == attention_mask)
-    output_tags = np.argmax(outputs[0].detach().cpu().numpy(), axis=2)[0]
-    for i in output_tags:
-        print(id2tag[i], end=' ')
-        results_file.write(id2tag[i] + ' ')
-    results_file.write('\n')
-    print()
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+    print(f'Device to be used: {device}')
+
+    model = torch.load('merged_model.pt')
+    model.to(device)
+    model.eval()
+    results_file = open('raw_text_result.txt', 'w')
+    tags = []
+    for batch in test_loader:
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        outputs = model(input_ids, attention_mask == attention_mask)
+        output_tags = np.argmax(outputs[0].detach().cpu().numpy(), axis=2)[0]
+        for i in output_tags:
+            print(id2tag[i], end=' ')
+            tags.append(id2tag[i])
+            results_file.write(id2tag[i] + ' ')
+        results_file.write('\n')
+        print()
+    tags.pop(0)
+    tags.pop()
+    tokens = text.split()
+    time = ""
+    parameter = ""
+    country = ""
+    value = ""
+    for idx, val in enumerate(tokens):
+        if tags[idx] in ["B-T", 'I-T']:
+            time = time + val + " "
+        elif tags[idx] in ["B-P", 'I-P']:
+            parameter = parameter + val + " "
+        elif tags[idx] in ["B-C", 'I-C']:
+            country = country + val + " "
+        elif tags[idx] in ["B-V", 'I-V']:
+            value = value + val + " "
+
+    return {
+        "time": time.rstrip(),
+        "parameter": parameter.rstrip(),
+        "country": country.rstrip(),
+        "value": value.rstrip()
+    }
+
+
+@app.route('/')
+def connection():
+    return "Hello"
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
