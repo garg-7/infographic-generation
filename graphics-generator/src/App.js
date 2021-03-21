@@ -20,19 +20,23 @@ const AppWrapper = styled.div`
     }
 `;
 
-// lightning
-// let backgroundColor = "#fcba03";
-// let textColor = "#fce49f";
+const colors = {
+    "lightning" : { backgroundColor : "#fcba03", textColor : "#fce49f"},
+    "tree" : { backgroundColor : "#2d960e", textColor : "#afeb9d"},
+    "money" : { backgroundColor : "#85bf4b", textColor : "#d2edb7"},
+    "internet" : { backgroundColor : "#4287f5", textColor : "#b0ceff"},
+    "family" : { backgroundColor : "#38d9f2", textColor : "#afe5ed"},
+}
 
 
 
 const App = () => {
-    let backgroundColor = "#fcba03";  // #e31b47
-    let textColor = "#fce49f";  // #e0abb6
+    let backgroundColor = "#4287f5";  // #e31b47
+    let textColor = "#b0ceff";  // #e0abb6
     let value = "15%";
     let text = "Decrease in forest cover of Australia in 12 years";
     let countryCode = "au";
-    let element = "family";
+    let element = "internet";
 
     const [input, setInput] = useState('');
     const [tokens, setTokens] = useState({})
@@ -43,7 +47,6 @@ const App = () => {
             .then((res) => {
                 setTokens(res.data);
             })
-
     }
 
     return (
