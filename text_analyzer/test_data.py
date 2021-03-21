@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from torch.utils.data import DataLoader
 from create_encodings import get_encodings_from_raw_text
 import torch
@@ -5,7 +6,7 @@ import numpy as np
 from flask import Flask, request
 
 app = Flask(__name__)
-
+CORS(app)
 
 class VariationDataset(torch.utils.data.Dataset):
     def __init__(self, encodings, labels):
@@ -39,8 +40,9 @@ id2tag = {id: tag for tag, id in tag2id.items()}
 
 @app.route('/tokenize', methods=['POST', ])
 def tokenize():
-    text = request.form.get('text')
-    print(text)
+    print("hello")
+    json = request.get_json()
+    text = json['text']
     test_encodings, _ = get_encodings_from_raw_text(text)
     test_dataset = VariationDataset(test_encodings, _)
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
@@ -87,11 +89,6 @@ def tokenize():
         "country": country.rstrip(),
         "value": value.rstrip()
     }
-
-
-@app.route('/')
-def connection():
-    return "Hello"
 
 
 if __name__ == '__main__':
