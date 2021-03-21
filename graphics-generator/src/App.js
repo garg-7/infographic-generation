@@ -20,13 +20,19 @@ const AppWrapper = styled.div`
     }
 `;
 
+// lightning
+// let backgroundColor = "#fcba03";
+// let textColor = "#fce49f";
+
+
+
 const App = () => {
-    let backgroundColor = "#07ed42";  // #e31b47
-    let textColor = "#92f0aa";  // #e0abb6
+    let backgroundColor = "#fcba03";  // #e31b47
+    let textColor = "#fce49f";  // #e0abb6
     let value = "15%";
     let text = "Decrease in forest cover of Australia in 12 years";
     let countryCode = "au";
-    let element = "tree";
+    let element = "family";
 
     const [input, setInput] = useState('');
     const [tokens, setTokens] = useState({})
