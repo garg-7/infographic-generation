@@ -61,9 +61,9 @@ const App = () => {
                 const data = res.data
                 setCountryCode(countries.getAlpha2Code(data.country, "en").toLowerCase())
                 setValue(data.value)
-                setElement(elements[data.parameter])
-                setBackgroundColor(colors[elements[data.parameter]].backgroundColor)
-                setTextColor(colors[elements[data.parameter]].textColor)
+                setElement(elements[data.parameter].toLowerCase())
+                setBackgroundColor(colors[elements[data.parameter].toLowerCase()].backgroundColor)
+                setTextColor(colors[elements[data.parameter].toLowerCase()].textColor)
                 setText(`Decrease in ${data.parameter} of ${data.country} in ${data.time} `)
             })
     }
