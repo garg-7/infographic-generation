@@ -81,13 +81,14 @@ def tokenize():
         elif tags[idx] in ["B-C", 'I-C']:
             country = country + val + " "
         elif tags[idx] in ["B-V", 'I-V']:
-            value = value + val + " "
+            if val.isnumeric() or val == "." or val == "%":
+                value = value + val + " "
 
     return {
         "time": time.rstrip(),
         "parameter": parameter.rstrip(),
         "country": country.rstrip(),
-        "value": value.rstrip()
+        "value": "".join(value.split())
     }
 
 
