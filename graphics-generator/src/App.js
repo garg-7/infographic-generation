@@ -9,6 +9,8 @@ import {Button} from "@material-ui/core";
 import axios from "axios";
 import countries from "i18n-iso-countries"
 
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+
 
 // India saw a 63 . 1 % hike in the per capita power consumption over the course of the past 12 months .
 
@@ -57,15 +59,12 @@ const App = () => {
         axios.post("/tokenize", {text: input})
             .then((res) => {
                 const data = res.data
-                console.log(data)
-                console.log(elements[data.parameter])
-                console.log(countries.getAlpha2Code("India", "en"));
-                // setCountryCode(countries.getAlpha2Code(data.country, "en"))
-                // setValue(data.value)
-                // setElement(elements[data.parameter])
-                // setBackgroundColor(colors[elements[data.parameter]].backgroundColor)
-                // setTextColor(colors[elements[data.parameter]].textColor)
-                // setText(`Decrease in ${data.parameter} of ${data.country} in ${data.time} `)
+                setCountryCode(countries.getAlpha2Code(data.country, "en").toLowerCase())
+                setValue(data.value)
+                setElement(elements[data.parameter])
+                setBackgroundColor(colors[elements[data.parameter]].backgroundColor)
+                setTextColor(colors[elements[data.parameter]].textColor)
+                setText(`Decrease in ${data.parameter} of ${data.country} in ${data.time} `)
             })
     }
 
