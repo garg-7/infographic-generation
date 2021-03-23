@@ -1,2 +1,6 @@
 merged_model.pt
 __pycache__/
+wiki-news-300d-1M.vec.zip
+wiki-news-300d-1M.vec
+dec_vec.npy
+inc_vec.npy
