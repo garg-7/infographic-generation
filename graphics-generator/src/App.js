@@ -6,6 +6,7 @@ import Infograpgic1 from "./Components/infographics1";
 import Infograpgic2 from "./Components/infographics2";
 import Infograpgic3 from "./Components/infographics3";
 import {Button} from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
 import countries from "i18n-iso-countries"
 
@@ -49,23 +50,30 @@ const App = () => {
     const [countryCode, setCountryCode] = useState("")
     const [value, setValue] = useState("")
     const [element, setElement] = useState("")
+    const [quantify, setQuantify] = useState(false)
     const [backgroundColor, setBackgroundColor] = useState("")
     const [textColor, setTextColor] = useState("")
     const [text, setText] = useState("")
+    const [click, setClick] = useState(false)
 
     const handleSubmit = evt => {
         evt.preventDefault();
+        setClick(true)
+        console.log(click)
         console.log(input)
         axios.post("/tokenize", {text: input})
             .then((res) => {
                 const data = res.data
                 setCountryCode(countries.getAlpha2Code(data.country, "en").toLowerCase())
                 setValue(data.value)
-                setElement(elements[data.parameter].toLowerCase())
-                setBackgroundColor(colors[elements[data.parameter].toLowerCase()].backgroundColor)
-                setTextColor(colors[elements[data.parameter].toLowerCase()].textColor)
-                setText(`Decrease in ${data.parameter} of ${data.country} in ${data.time} `)
+                setQuantify(data.quantify)
+                const para = data.parameter.toLowerCase()
+                setElement(elements[para])
+                setBackgroundColor(colors[elements[para]].backgroundColor)
+                setTextColor(colors[elements[para]].textColor)
+                setText(`${data.quantify ? "Increase": "Decrease"} in ${data.parameter} of ${data.country} in ${data.time} `)
             })
+        setClick(false)
     }
 
     return (
@@ -88,7 +96,12 @@ const App = () => {
                     </Button>
                 </form>
                 {
-                    text && (
+                    click && (
+                        <CircularProgress size={30}/>
+                    )
+                }
+                {
+                    text && !click && (
                         <>
                             <Infograpgic1
                                 backgroundColor={backgroundColor}
@@ -105,7 +118,7 @@ const App = () => {
                                 text={text}
                                 code={countryCode}
                                 element={element}
-                                decrease={true}
+                                decrease={!quantify}
                             />
                             <Infograpgic3
                                 backgroundColor={backgroundColor}
@@ -114,7 +127,7 @@ const App = () => {
                                 text={text}
                                 code={countryCode}
                                 element={element}
-                                decrease={true}
+                                decrease={!quantify}
                             />
                         </>
                     )
