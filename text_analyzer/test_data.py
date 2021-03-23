@@ -3,6 +3,7 @@ from torch.utils.data import DataLoader
 from create_encodings import get_encodings_from_raw_text
 import torch
 import numpy as np
+from qualifier import is_increase
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -73,6 +74,7 @@ def tokenize():
     parameter = ""
     country = ""
     value = ""
+    quantify = ""
     for idx, val in enumerate(tokens):
         if tags[idx] in ["B-T", 'I-T']:
             time = time + val + " "
@@ -83,12 +85,19 @@ def tokenize():
         elif tags[idx] in ["B-V", 'I-V']:
             if val.isnumeric() or val == "." or val == "%":
                 value = value + val + " "
+            else:
+                quantify = quantify + val + " "
+
+    print(quantify)
+    increase = is_increase(quantify.rstrip())
+    print(increase)
 
     return {
         "time": time.rstrip(),
         "parameter": parameter.rstrip(),
         "country": country.rstrip(),
-        "value": "".join(value.split())
+        "value": "".join(value.split()),
+        "quantify": increase
     }
 
 

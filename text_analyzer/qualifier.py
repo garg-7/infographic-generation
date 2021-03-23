@@ -1,14 +1,14 @@
 import numpy as np
 
 
-def cosineSim(vec1, vec2):
+def cosine_sim(vec1, vec2):
     dot_p = np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
     if dot_p > 1:
         dot_p = 1
     return 1 - np.arccos(dot_p) / np.pi
 
 
-def getSimilarity(check_word):
+def is_increase(check_word):
     inc_vec = []
     dec_vec = []
     try:
@@ -44,16 +44,16 @@ def getSimilarity(check_word):
                 break
 
     # get the similarity with increase and decrease
-    inc_sim = cosineSim(vec, inc_vec)
+    inc_sim = cosine_sim(vec, inc_vec)
     # print('with increase:', inc_sim)
-    dec_sim = cosineSim(vec, dec_vec)
+    dec_sim = cosine_sim(vec, dec_vec)
     # print('with decrease:', dec_sim)
 
     if inc_sim > dec_sim:
-        print(word, 'increase')
+        return True
     else:
-        print(word, 'decrease')
+        return False
 
 
-if __name__ == '__main__':
-    getSimilarity('hike')
+# if __name__ == '__main__':
+#     is_increase('hike')
