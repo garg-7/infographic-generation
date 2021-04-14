@@ -1,0 +1,20 @@
+Novak Djokovic,Serbia
+Daniil Medvedev,Russia
+Rafael Nadal,Spain
+Dominic Thiem,Austria
+Stefanos Tsitsipas,Greece
+Alexander Zverev,Germany
+Roger Federer,Switzerland
+Andrey Rublev,Russia
+Diego Schwartzman,Argentina
+Matteo Berrettini,Italy
+Roberto Bautista Agut,Spain
+Denis Shapovalov,Canada
+Gaël Monfils,France
+David Goffin,Belgium
+Pablo Carreño Busta,Spain
+Hubert Hurkacz,Poland
+Grigor Dimitrov,Bulgaria
+Fabio Fognini,Italy
+Milos Raonic,Canada
+Cristian Garín,Chile
