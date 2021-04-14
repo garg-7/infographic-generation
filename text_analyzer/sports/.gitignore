@@ -1,0 +1,8 @@
+data.txt
+data_gt.txt
+train.txt
+train_gt.txt
+val.txt
+val_gt.txt
+raw_text_result.txt
+sports_model.pt

@@ -89,12 +89,13 @@ def tokenize():
                 quantify = quantify + val + " "
 
     print(quantify)
-    increase = is_increase(quantify.rstrip())
+    # increase = is_increase(quantify.rstrip())
+    increase = False
     print(increase)
 
     return {
         "time": time.rstrip(),
-        "parameter": parameter.rstrip(),
+        "parameter": parameter.rstrip().replace(' ', '-').lower(),
         "country": country.rstrip(),
         "value": "".join(value.split()),
         "quantify": increase

@@ -36,25 +36,25 @@ const colors = {
 }
 
 const elements = {
-    "per capita power consumption": "lightning",
-    "forest-cover": "tree",
-    "gdp": "money",
-    "internet": "internet",
-    "population": "family"
+    "per-capita-power-consumption": {name : "lightning", backgroundColor : "#fcba03", textColor : "#fce49f"},
+    "forest-cover": {name : "tree", backgroundColor : "#2d960e", textColor : "#afeb9d"},
+    "gdp": {name : "money", backgroundColor : "#85bf4b", textColor : "#d2edb7"},
+    "internet": {name : "internet", backgroundColor : "#4287f5", textColor : "#b0ceff"},
+    "population": {name : "family", backgroundColor : "#38d9f2", textColor : "#afe5ed"},
 }
 
 
 
 const App = () => {
     const [input, setInput] = useState('');
-    const [countryCode, setCountryCode] = useState("")
-    const [value, setValue] = useState("")
-    const [element, setElement] = useState("")
-    const [quantify, setQuantify] = useState(false)
-    const [backgroundColor, setBackgroundColor] = useState("")
-    const [textColor, setTextColor] = useState("")
-    const [text, setText] = useState("")
+    // const [value, setValue] = useState("")
+    // const [element, setElement] = useState("")
+    // const [quantify, setQuantify] = useState(false)
+    // const [backgroundColor, setBackgroundColor] = useState("")
+    // const [textColor, setTextColor] = useState("")
+    // const [text, setText] = useState("")
     const [click, setClick] = useState(false)
+    const [infoData, setInfoData] = useState({})
 
     const handleSubmit = evt => {
         evt.preventDefault();
@@ -63,18 +63,35 @@ const App = () => {
         console.log(input)
         axios.post("/tokenize", {text: input})
             .then((res) => {
-                const data = res.data
-                setCountryCode(countries.getAlpha2Code(data.country, "en").toLowerCase())
-                setValue(data.value)
-                setQuantify(data.quantify)
-                const para = data.parameter.toLowerCase()
-                setElement(elements[para])
-                setBackgroundColor(colors[elements[para]].backgroundColor)
-                setTextColor(colors[elements[para]].textColor)
-                setText(`${data.quantify ? "Increase": "Decrease"} in ${data.parameter} of ${data.country} in ${data.time} `)
+                // const data = res.data
+                setInfoData(res.data)
+                // setValue(data.value)
+                // setQuantify(data.quantify)
+                // const para = data.parameter.toLowerCase()
+                // setElement(elements[para])
+                // setBackgroundColor(colors[elements[para]].backgroundColor)
+                // setTextColor(colors[elements[para]].textColor)
+                // setText(`${data.quantify ? "Increase": "Decrease"} in ${data.parameter} of ${data.country} in ${data.time} `)
             })
         setClick(false)
     }
+
+
+
+    let geographicData = {}
+
+    if(infoData.country){
+        Object.assign(geographicData, {countryCode: countries.getAlpha2Code(infoData.country, "en").toLowerCase()});
+        Object.assign(geographicData, {value: infoData.value});
+        Object.assign(geographicData, {quantify: infoData.quantify});
+        const parameter = elements[infoData.parameter];
+        Object.assign(geographicData, {element: parameter.name});
+        Object.assign(geographicData, {backgroundColor: parameter.backgroundColor});
+        Object.assign(geographicData, {textColor: parameter.textColor});
+        const text = `${infoData.quantify ? "Increase": "Decrease"} in ${infoData.parameter} of ${infoData.country} in ${infoData.time} `
+        Object.assign(geographicData, {text: text});
+    }
+
 
     return (
         <Container>
@@ -95,39 +112,39 @@ const App = () => {
                         Submit
                     </Button>
                 </form>
+                {/*{*/}
+                {/*    click && (*/}
+                {/*        <CircularProgress size={30}/>*/}
+                {/*    )*/}
+                {/*}*/}
                 {
-                    click && (
-                        <CircularProgress size={30}/>
-                    )
-                }
-                {
-                    text && (
+                    geographicData.text && (
                         <>
                             <Infograpgic1
-                                backgroundColor={backgroundColor}
-                                textColor={textColor}
-                                value={value}
-                                text={text}
-                                code={countryCode}
-                                element={element}
+                                backgroundColor={geographicData.backgroundColor}
+                                textColor={geographicData.textColor}
+                                value={geographicData.value}
+                                text={geographicData.text}
+                                code={geographicData.countryCode}
+                                element={geographicData.element}
                             />
                             <Infograpgic2
-                                backgroundColor={backgroundColor}
-                                textColor={textColor}
-                                value={value}
-                                text={text}
-                                code={countryCode}
-                                element={element}
-                                decrease={!quantify}
+                                backgroundColor={geographicData.backgroundColor}
+                                textColor={geographicData.textColor}
+                                value={geographicData.value}
+                                text={geographicData.text}
+                                code={geographicData.countryCode}
+                                element={geographicData.element}
+                                decrease={!geographicData.quantify}
                             />
                             <Infograpgic3
-                                backgroundColor={backgroundColor}
-                                textColor={textColor}
-                                value={value}
-                                text={text}
-                                code={countryCode}
-                                element={element}
-                                decrease={!quantify}
+                                backgroundColor={geographicData.backgroundColor}
+                                textColor={geographicData.textColor}
+                                value={geographicData.value}
+                                text={geographicData.text}
+                                code={geographicData.countryCode}
+                                element={geographicData.element}
+                                decrease={!geographicData.quantify}
                             />
                         </>
                     )
