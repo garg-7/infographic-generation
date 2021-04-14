@@ -101,7 +101,7 @@ const App = () => {
                     )
                 }
                 {
-                    text && !click && (
+                    text && (
                         <>
                             <Infograpgic1
                                 backgroundColor={backgroundColor}
