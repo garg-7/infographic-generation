@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Infograpgic1 from "./Components/infographics1";
 import Infograpgic2 from "./Components/infographics2";
 import Infograpgic3 from "./Components/infographics3";
+import SportsIngograhics1 from "./Components/sports-ingograhics1";
 import {Button} from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
@@ -26,14 +27,6 @@ const AppWrapper = styled.div`
         }
     }
 `;
-
-const colors = {
-    "lightning" : { backgroundColor : "#fcba03", textColor : "#fce49f"},
-    "tree" : { backgroundColor : "#2d960e", textColor : "#afeb9d"},
-    "money" : { backgroundColor : "#85bf4b", textColor : "#d2edb7"},
-    "internet" : { backgroundColor : "#4287f5", textColor : "#b0ceff"},
-    "family" : { backgroundColor : "#38d9f2", textColor : "#afe5ed"},
-}
 
 const elements = {
     "per-capita-power-consumption": {name : "lightning", backgroundColor : "#fcba03", textColor : "#fce49f"},
@@ -149,6 +142,7 @@ const App = () => {
                         </>
                     )
                 }
+                <SportsIngograhics1/>
             </AppWrapper>
         </Container>
     );
