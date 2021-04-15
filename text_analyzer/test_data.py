@@ -1,3 +1,5 @@
+import os
+
 from flask_cors import CORS
 from torch.utils.data import DataLoader
 from create_encodings import get_encodings_from_raw_text
@@ -5,6 +7,7 @@ import torch
 import numpy as np
 from qualifier import is_increase
 from flask import Flask, request
+from sports.test_data_sports import test_sports
 
 app = Flask(__name__)
 CORS(app)
@@ -44,6 +47,7 @@ def tokenize():
     print("hello")
     json = request.get_json()
     text = json['text']
+
     test_encodings, _ = get_encodings_from_raw_text(text)
     test_dataset = VariationDataset(test_encodings, _)
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
@@ -104,7 +108,12 @@ def tokenize():
 
 @app.route('/sports', methods=['POST', ])
 def sports():
-
+    print("hello_sport")
+    json = request.get_json()
+    text = json['text']
+    os.chdir("sports")
+    t = test_sports(text)
+    return t
 
 
 if __name__ == '__main__':

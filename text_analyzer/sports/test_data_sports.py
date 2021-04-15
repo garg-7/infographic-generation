@@ -42,10 +42,10 @@ tag2id = {tag: id for id, tag in enumerate(unique_tags)}
 id2tag = {id: tag for tag, id in tag2id.items()}
 
 
-def test_sports():
-    text = "Cricket : World no. 1 South Africa beat England by 35 runs ."
+def test_sports(text):
+    print(text)
 
-    test_encodings, _ = get_encodings_from_raw_text('raw_text.txt')
+    test_encodings, _ = get_encodings_from_raw_text(text)
     test_dataset = VariationDataset(test_encodings, _)
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
@@ -55,8 +55,8 @@ def test_sports():
     model = torch.load('sports_model.pt')
     model.to(device)
     model.eval()
-
     results_file = open('raw_text_result.txt', 'w')
+    tags = []
     for batch in test_loader:
         input_ids = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
@@ -64,8 +64,39 @@ def test_sports():
         output_tags = np.argmax(outputs[0].detach().cpu().numpy(), axis=2)[0]
         for i in output_tags:
             print(id2tag[i], end=' ')
+            tags.append(id2tag[i])
             results_file.write(id2tag[i] + ' ')
         results_file.write('\n')
         print()
+    tags.pop(0)
+    tags.pop()
+    tokens = text.split()
+    sport = ""
+    winning_team = ""
+    losing_team = ""
+    score = ""
+    match = ""
+    for idx, val in enumerate(tokens):
+        if tags[idx] in ["B-S", 'I-S']:
+            sport = sport + val + " "
+        elif tags[idx] in ["B-WT", 'I-WT']:
+            winning_team = winning_team + val + " "
+        elif tags[idx] in ["B-LT", 'I-LT']:
+            losing_team = losing_team + val + " "
+        elif tags[idx] in ["B-G", 'I-G']:
+            score = score + val + " "
+        elif tags[idx] in ["B-M", 'I-M']:
+            match = match + val + " "
 
-test_sports()
+    t = {
+        "sport": sport.rstrip(),
+        "winning_team": winning_team.rstrip(),
+        "losing_team": losing_team.rstrip(),
+        "score": score.rstrip(),
+        "match": match.rstrip(),
+    }
+    print(t)
+    return t
+
+
+test_sports("Cricket : World no. 1 New Zealand pip Bangladesh by 74 runs to win ICC Mens Cricket World Cup .")

@@ -126,13 +126,13 @@ def main(text_file):
     encodings['attention_mask'] = attention_masks
     return encodings, final_tag_ids
 
-def get_encodings_from_raw_text(text_file):
+def get_encodings_from_raw_text(sentence):
     tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-cased')
     texts = []
 
-    f = list(open(text_file, 'r').readlines())
-    # f = list()
-    # f.append(sentence)
+    # f = list(open(text_file, 'r').readlines())
+    f = list()
+    f.append(sentence)
 
     for i, line in enumerate(f):
         tokens = line.strip().split(' ')
