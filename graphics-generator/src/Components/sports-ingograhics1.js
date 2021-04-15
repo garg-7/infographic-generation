@@ -1,7 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
-import cricket_image from "../assets/cricket/index.jpg"
+import slugify from "./slugify";
+import countries from "i18n-iso-countries"
 
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const SportsIngograhics1wrapper = styled.div`
   margin: 20px auto;
@@ -82,31 +84,65 @@ const SportsIngograhics1wrapper = styled.div`
 
 const SportsIngograhics1 = (props) =>{
 
-    // const im = require("../assets/cricket/matches/icc-mens-cricket-world-cup.png")
     const requestImageFile = require.context('../assets', true);
 
+    const slug_sport = slugify(props.sport);
+    let win_image = ""
+    let lose_image = ""
+
+    if(slug_sport === "cricket"){
+        win_image = `./cricket/teams/${slugify(props.winning_team)}.png`
+        lose_image = `./cricket/teams/${slugify(props.losing_team)}.png`
+    }
+    else if(slug_sport === "hockey"){
+        const win = slugify(countries.getAlpha2Code(props.winning_team, "en"));
+        const lose = slugify(countries.getAlpha2Code(props.losing_team, "en"));
+        win_image = `./flags/${win}.png`
+        lose_image = `./flags/${lose}.png`
+    }
+    else if(slug_sport === "tennis"){
+        win_image = `./tennis/players/${slugify(props.winning_team)}.jpg`
+        lose_image = `./tennis/players/${slugify(props.losing_team)}.jpg`
+    }
 
     return(
-        <SportsIngograhics1wrapper backgroundImage={requestImageFile("./cricket/index.jpg").default}>
+        <SportsIngograhics1wrapper backgroundImage={requestImageFile(`./${slug_sport}/index.jpg`).default}>
             <div className="layout">
                 <div className="blur"/>
                 <div className="match">
-                    <span>ICC Men's Cricket World Cup</span> <br/>
-                    <img src={requestImageFile("./cricket/matches/icc-mens-cricket-world-cup.png").default} alt="ICC Men's Cricket World Cup"/>
+                    {
+                        props.match ? (
+                            <>
+                                <span>{props.match}</span> <br/>
+                                <img src={requestImageFile(`./${slug_sport}/matches/${slugify(props.match)}.png`).default} alt={props.match}/>
+                            </>
+                        ) : (
+                            <>
+                                <span>{props.sport} Match</span> <br/>
+                                <img src={requestImageFile(`./${slug_sport}/matches/index.png`).default} alt="match"/>
+                            </>
+                        )
+                    }
                 </div>
                 <div className="teams">
                     <div className="team winner">
-                        <img src={requestImageFile("./cricket/teams/india.png").default} alt="Winner"/>
-                        <span>India</span>
+                        <img src={requestImageFile(win_image).default} alt="Winner"/>
+                        <span>{props.winning_team}</span>
                     </div>
                     <div className="team loser">
-                        <img src={requestImageFile("./cricket/teams/england.png").default} alt="Loser"/>
-                        <span>England</span>
+                        <img src={requestImageFile(lose_image).default} alt="Loser"/>
+                        <span>{props.losing_team}</span>
                     </div>
                 </div>
                 <div className="score">
                     <span>Defeats</span><br/>
-                    By 5 runs
+                    {
+                        props.score && (
+                            <>
+                                By {props.score}
+                            </>
+                        )
+                    }
                 </div>
             </div>
         </SportsIngograhics1wrapper>
