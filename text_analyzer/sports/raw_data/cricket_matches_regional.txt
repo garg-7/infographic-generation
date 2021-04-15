@@ -1,6 +1,6 @@
 The Ashes,England,Australia
-Border-Gavaskar Trophy,Australia,India
+Border - Gavaskar Trophy,Australia,India
 Sir Vivian Richards Trophy,South Africa,West Indies
 Freedom Trophy,India,South Africa
 Pataudi Trophy,England,India
-Warne-Muralidaran Trophy,Australia,Sri Lanka
+Warne - Muralidaran Trophy,Australia,Sri Lanka

@@ -4,8 +4,8 @@ import random
 def win_lose_world(sport: str, team1: str, team2: str, margin: str, match: str, cat: str):
     
     ranking1, ranking2 = random.sample(['1', '2', '3', '4', '5'], 2)
-    team1 = random.sample([team1, f"World no. {ranking1} {team1}"], 1)[0]
-    team2 = random.sample([team2 ,f"world no. {ranking2} {team2}"], 1)[0]
+    team1 = random.sample([team1, f"World no . {ranking1} {team1}"], 1)[0]
+    team2 = random.sample([team2 ,f"world no . {ranking2} {team2}"], 1)[0]
     if cat=='team':
         beat_word = random.sample(['beat', 'thrash', 'pip'], 1)[0]
     elif cat=='player':
@@ -88,10 +88,10 @@ def win_lose_world(sport: str, team1: str, team2: str, margin: str, match: str, 
 def draw_world(sport: str, team1: str, team2: str, margin: str, match: str, cat: str):
     sport_addition = random.sample([f'{sport} : ', ''],1)[0]
     ranking = random.sample(['1', '2', '3', '4', '5'], 1)[0]
-    adj1 = random.sample(['A resilient ', 'A buoyant ', '', f"World no. {ranking} "], 1)[0]
+    adj1 = random.sample(['A resilient ', 'A buoyant ', '', f"World no . {ranking} "], 1)[0]
     adj2 = ''
     if len(adj1)==0:
-        adj2 = random.sample(['a resilient ', 'a buoyant ', '', f"world no. {ranking} "], 1)[0]
+        adj2 = random.sample(['a resilient ', 'a buoyant ', '', f"world no . {ranking} "], 1)[0]
     
     margin_addition = random.sample([margin + ' ',''], 1)[0]
     match_addition = random.sample([f'in {match} ' ,''], 1)[0]
